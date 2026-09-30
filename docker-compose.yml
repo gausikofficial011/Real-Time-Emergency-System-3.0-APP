@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: emergencyai-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - emergencyai-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: emergencyai-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/emergencyai
+      - JWT_SECRET=emergencyai_super_secret_jwt_key_minimum_32_characters_long
+      - JWT_EXPIRES_IN=7d
+      - NODE_ENV=production
+      - AI_SERVICE_URL=http://ai-service:8000
+      - FRONTEND_URL=http://localhost:5173
+    depends_on:
+      - mongodb
+    networks:
+      - emergencyai-network
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: emergencyai-ai-service
+    ports:
+      - "8000:8000"
+    networks:
+      - emergencyai-network
+
+volumes:
+  mongo_data:
+
+networks:
+  emergencyai-network:
+    driver: bridge

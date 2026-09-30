@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "EmergencyAI",
+    "slug": "emergencyai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "emergencyai",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#0f0f1a"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.emergencyai.mobile",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "EmergencyAI needs your location to dispatch emergency services.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "EmergencyAI tracks your location in the background during active emergency dispatch.",
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f0f1a"
+      },
+      "package": "com.emergencyai.mobile",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow EmergencyAI to use your location."
+        }
+      ],
+      "expo-asset",
+      "expo-font",
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
